@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+    <title th:if="${task.id}">Edit Task</title>
+    <title th:unless="${task.id}">Create Task</title>
+</head>
+<body>
+    <h1 th:if="${task.id}">Edit Task</h1>
+    <h1 th:unless="${task.id}">Create Task</h1>
+    
+    <form th:if="${task.id}" th:action="@{/tasks/update}" th:object="${task}" method="post">
+        <input type="hidden" th:field="*{id}">
+        Title: <input type="text" th:field="*{title}"><br>
+        Description: <input type="text" th:field="*{description}"><br>
+        <button type="submit">Update Task</button>
+    </form>
+    
+    <form th:unless="${task.id}" th:action="@{/tasks/save}" th:object="${task}" method="post">
+        Title: <input type="text" th:field="*{title}"><br>
+        Description: <input type="text" th:field="*{description}"><br>
+        <button type="submit">Create Task</button>
+    </form>
+    
+    <a href="/tasks">Back to Task List</a>
+</body>
+</html>
